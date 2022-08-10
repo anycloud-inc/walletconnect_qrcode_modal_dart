@@ -44,12 +44,8 @@ class ModalWalletIOSPage extends StatelessWidget {
                   itemCount: walletData.data!.length,
                   itemBuilder: (context, index) {
                     final wallet = walletData.data![index];
-                    return Stack(
-                      children: [
-                        _buildItem(wallet),
-                        if (!shouldEnable(wallet)) _buildLayer()
-                      ],
-                    );
+                    if (!shouldEnable(wallet)) return Container();
+                    return _buildItem(wallet);
                   },
                 ),
               ),
@@ -142,24 +138,6 @@ class ModalWalletIOSPage extends StatelessWidget {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildLayer() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 16),
-      color: Colors.black.withOpacity(0.8),
-      child: const Center(
-        child: Text(
-          'Coming soon...',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
         ),
       ),
     );
