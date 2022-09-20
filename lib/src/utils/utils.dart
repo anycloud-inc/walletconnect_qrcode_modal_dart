@@ -39,6 +39,24 @@ class Utils {
     }
   }
 
+  static Future<void> androidLaunch({
+    required Wallet wallet,
+    required String uri,
+  }) async {
+    if (await openableLink(wallet.mobile.universal)) {
+      await launchUrl(
+        convertToWcLink(appLink: wallet.mobile.universal!, wcUri: uri),
+        mode: LaunchMode.externalApplication,
+      );
+    } else if (await openableLink(wallet.mobile.native)) {
+      await launchUrl(
+        convertToWcLink(appLink: wallet.mobile.native!, wcUri: uri),
+      );
+    } else if (await openableLink(wallet.app.android)) {
+      await launchUrl(Uri.parse(wallet.app.android!));
+    }
+  }
+
   static Future<void> desktopLaunch({
     required Wallet wallet,
     required String uri,
