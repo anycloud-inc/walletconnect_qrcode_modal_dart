@@ -10,12 +10,14 @@ import 'models/wallet.dart';
 import 'utils/utils.dart';
 
 class WalletConnectQrCodeModal {
+  final Function() navigateQrScanner;
   factory WalletConnectQrCodeModal({
     WalletConnect? connector,
+    required Function() navigateQrScanner,
   }) {
     connector = connector ?? WalletConnect();
-
-    return WalletConnectQrCodeModal._internal(connector: connector);
+    return WalletConnectQrCodeModal._internal(
+        connector: connector, navigateQrScanner: navigateQrScanner);
   }
 
   WalletConnect get connector => _connector;
@@ -85,6 +87,7 @@ class WalletConnectQrCodeModal {
 
   WalletConnectQrCodeModal._internal({
     required WalletConnect connector,
+    required this.navigateQrScanner,
   }) : _connector = connector;
 
   Future<SessionStatus?> _createSessionWithModal(
@@ -115,6 +118,7 @@ class WalletConnectQrCodeModal {
                   builder: (context) => ModalMainPage(
                         uri: uri,
                         walletCallback: (wallet) => _wallet = wallet,
+                        navigateQrScanner: navigateQrScanner,
                       ));
 
               isDismissed = true;
