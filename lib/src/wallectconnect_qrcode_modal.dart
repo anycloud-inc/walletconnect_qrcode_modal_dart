@@ -118,7 +118,7 @@ class WalletConnectQrCodeModal {
                   builder: (context) => ModalMainPage(
                         uri: uri,
                         walletCallback: (wallet) => _wallet = wallet,
-                        navigateQrScanner: navigateQrScanner,
+                        onQrScanButtonPressed: navigateQrScanner,
                       ));
 
               isDismissed = true;

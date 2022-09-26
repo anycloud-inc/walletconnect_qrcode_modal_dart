@@ -14,13 +14,13 @@ import 'modal_wallet_desktop_page.dart';
 class ModalMainPage extends StatefulWidget {
   const ModalMainPage({
     required this.uri,
-    required this.navigateQrScanner,
+    required this.onQrScanButtonPressed,
     this.walletCallback,
     Key? key,
   }) : super(key: key);
 
   final String uri;
-  final Function() navigateQrScanner;
+  final Function() onQrScanButtonPressed;
   final WalletCallback? walletCallback;
 
   @override
@@ -67,7 +67,7 @@ class _ModalMainPageState extends State<ModalMainPage> {
                       groupValue: _groupValue!,
                       walletCallback: widget.walletCallback,
                       uri: widget.uri,
-                      navigateQrScanner: widget.navigateQrScanner,
+                      onQrScanButtonPressed: widget.onQrScanButtonPressed,
                     ),
                   ),
                 ],
@@ -117,7 +117,7 @@ class _ModalContent extends StatelessWidget {
   const _ModalContent({
     required this.groupValue,
     required this.uri,
-    required this.navigateQrScanner,
+    required this.onQrScanButtonPressed,
     this.walletCallback,
     Key? key,
   }) : super(key: key);
@@ -125,7 +125,7 @@ class _ModalContent extends StatelessWidget {
   final int groupValue;
   final String uri;
   final WalletCallback? walletCallback;
-  final Function() navigateQrScanner;
+  final Function() onQrScanButtonPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +138,7 @@ class _ModalContent extends StatelessWidget {
         return ModalWalletDesktopPage(uri: uri, walletCallback: walletCallback);
       }
     } else if (groupValue == 1) {
-      return ModalWalletWebPage(onPressed: navigateQrScanner);
+      return ModalWalletWebPage(onPressed: onQrScanButtonPressed);
     }
     return ModalQrCodePage(uri: uri);
   }
