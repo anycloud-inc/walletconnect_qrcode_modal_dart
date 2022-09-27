@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:walletconnect_qrcode_modal_dart/src/lib/app_clipbord_manager.dart';
+
+const _webAuthurl = 'https://cnp-friends.com/auth';
+const _appGray = Color(0xFFA2A5A9);
 
 class ModalWalletWebPage extends StatelessWidget {
   final Function() onPressed;
@@ -7,38 +11,22 @@ class ModalWalletWebPage extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 32,
-        horizontal: 16,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            '接続の手順',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
+  Widget _urlText(BuildContext context) {
+    return GestureDetector(
+      onTap: () => AppClipboardManager.copy(context, text: _webAuthurl),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          Text(
+            _webAuthurl,
+            style: TextStyle(color: _appGray),
           ),
-          const SizedBox(height: 16),
-          const Text('1.PCで以下のリンクを開きMetaMaskと接続'),
-          const SizedBox(height: 16),
-          const Center(
-            child: Text(
-              'https://cnp-friends.com/auth',
-              style: TextStyle(
-                color: Color(0xFFA2A5A9),
-              ),
-            ),
+          SizedBox(width: 8),
+          Icon(
+            Icons.content_copy,
+            size: 16,
+            color: _appGray,
           ),
-          const SizedBox(height: 16),
-          const Text('2.接続後、生成されるQRコードを読み込む'),
-          const SizedBox(height: 16),
-          _qrScannerButton(context)
         ],
       ),
     );
@@ -63,6 +51,36 @@ class ModalWalletWebPage extends StatelessWidget {
           overlayColor: MaterialStateProperty.resolveWith(
               (states) => Colors.white.withOpacity(0.1)),
         ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: 32,
+        horizontal: 16,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            '接続の手順',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 16),
+          const Text('1.PCで以下のリンクを開きMetaMaskと接続'),
+          const SizedBox(height: 16),
+          _urlText(context),
+          const SizedBox(height: 16),
+          const Text('2.接続後、生成されるQRコードを読み込む'),
+          const SizedBox(height: 16),
+          _qrScannerButton(context)
+        ],
       ),
     );
   }
