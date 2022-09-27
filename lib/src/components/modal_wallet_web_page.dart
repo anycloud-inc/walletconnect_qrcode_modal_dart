@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:walletconnect_qrcode_modal_dart/src/lib/app_clipbord_manager.dart';
 
-const _webAuthurl = 'https://cnp-friends.com/auth';
+const _webAuthurl = 'https://app.cnpowners.jp';
 const _appGray = Color(0xFFA2A5A9);
 
 class ModalWalletWebPage extends StatelessWidget {
