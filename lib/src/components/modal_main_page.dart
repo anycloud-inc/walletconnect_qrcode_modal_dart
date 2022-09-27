@@ -7,18 +7,20 @@ import '../utils/utils.dart';
 import 'modal_qrcode_page.dart';
 import 'modal_wallet_ios_page.dart';
 import 'modal_wallet_android_page.dart';
-
+import 'modal_wallet_web_page.dart';
 import '../models/wallet.dart';
 import 'modal_wallet_desktop_page.dart';
 
 class ModalMainPage extends StatefulWidget {
   const ModalMainPage({
     required this.uri,
+    required this.onQrScanButtonPressed,
     this.walletCallback,
     Key? key,
   }) : super(key: key);
 
   final String uri;
+  final Function() onQrScanButtonPressed;
   final WalletCallback? walletCallback;
 
   @override
@@ -54,7 +56,8 @@ class _ModalMainPageState extends State<ModalMainPage> {
                       0: Utils.isDesktop
                           ? const QrSegment()
                           : const ListSegment(),
-                      1: Utils.isDesktop
+                      1: const QrScannerSegment(),
+                      2: Utils.isDesktop
                           ? const ListSegment()
                           : const QrSegment(),
                     },
@@ -64,6 +67,7 @@ class _ModalMainPageState extends State<ModalMainPage> {
                       groupValue: _groupValue!,
                       walletCallback: widget.walletCallback,
                       uri: widget.uri,
+                      onQrScanButtonPressed: widget.onQrScanButtonPressed,
                     ),
                   ),
                 ],
@@ -87,6 +91,17 @@ class ListSegment extends StatelessWidget {
   }
 }
 
+class QrScannerSegment extends StatelessWidget {
+  const QrScannerSegment({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const _Segment(
+      text: 'PC(Web)',
+    );
+  }
+}
+
 class QrSegment extends StatelessWidget {
   const QrSegment({Key? key}) : super(key: key);
 
@@ -102,6 +117,7 @@ class _ModalContent extends StatelessWidget {
   const _ModalContent({
     required this.groupValue,
     required this.uri,
+    required this.onQrScanButtonPressed,
     this.walletCallback,
     Key? key,
   }) : super(key: key);
@@ -109,10 +125,11 @@ class _ModalContent extends StatelessWidget {
   final int groupValue;
   final String uri;
   final WalletCallback? walletCallback;
+  final Function() onQrScanButtonPressed;
 
   @override
   Widget build(BuildContext context) {
-    if (groupValue == (Utils.isDesktop ? 1 : 0)) {
+    if (groupValue == (Utils.isDesktop ? 2 : 0)) {
       if (Utils.isIOS) {
         return ModalWalletIOSPage(uri: uri, walletCallback: walletCallback);
       } else if (Utils.isAndroid) {
@@ -120,6 +137,8 @@ class _ModalContent extends StatelessWidget {
       } else {
         return ModalWalletDesktopPage(uri: uri, walletCallback: walletCallback);
       }
+    } else if (groupValue == 1) {
+      return ModalWalletWebPage(onPressed: onQrScanButtonPressed);
     }
     return ModalQrCodePage(uri: uri);
   }
