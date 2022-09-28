@@ -19,38 +19,36 @@ class _ModalWalletWebPageState extends State<ModalWalletWebPage> {
   bool _copiedToClipboard = false;
 
   Widget _urlText(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16),
-      child: Row(
-        children: [
-          const Text(
-            _webAuthurl,
-            style: TextStyle(fontSize: 14, color: _appGray),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text(
+          _webAuthurl,
+          style: TextStyle(fontSize: 14, color: _appGray),
+        ),
+        const SizedBox(width: 8),
+        TextButton(
+          style: TextButton.styleFrom(
+            backgroundColor: _appGray.withOpacity(0.1),
+            minimumSize: Size.zero,
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),
-          const SizedBox(width: 8),
-          TextButton(
-            style: TextButton.styleFrom(
-              backgroundColor: _appGray.withOpacity(0.1),
-              minimumSize: Size.zero,
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            ),
-            child: Text(
-              _copiedToClipboard ? 'Copied' : 'Copy',
-              style: const TextStyle(fontSize: 12, color: _appGray),
-            ),
-            onPressed: _copiedToClipboard
-                ? null
-                : () async {
-                    await AppClipboardManager.copy(context, text: _webAuthurl);
-                    setState(() => _copiedToClipboard = true);
-                    await Future.delayed(
-                      const Duration(seconds: 1),
-                      () => setState(() => _copiedToClipboard = false),
-                    );
-                  },
+          child: Text(
+            _copiedToClipboard ? 'Copied' : 'Copy',
+            style: const TextStyle(fontSize: 12, color: _appGray),
           ),
-        ],
-      ),
+          onPressed: _copiedToClipboard
+              ? null
+              : () async {
+                  await AppClipboardManager.copy(context, text: _webAuthurl);
+                  setState(() => _copiedToClipboard = true);
+                  await Future.delayed(
+                    const Duration(seconds: 1),
+                    () => setState(() => _copiedToClipboard = false),
+                  );
+                },
+        ),
+      ],
     );
   }
 
