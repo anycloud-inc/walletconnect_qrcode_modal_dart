@@ -104,6 +104,7 @@ class WalletConnectQrCodeModal {
 
     final CancelableCompleter cancelableCompleter = CancelableCompleter();
     final Completer<SessionStatus?> completer = Completer();
+    BuildContext? dialogContext;
 
     Future<SessionStatus?> createSession() async {
       try {
@@ -112,14 +113,21 @@ class WalletConnectQrCodeModal {
             onDisplayUri: (uri) async {
               _uri = uri;
               await showDialog(
-                  context: context,
-                  useSafeArea: true,
-                  barrierDismissible: true,
-                  builder: (context) => ModalMainPage(
-                        uri: uri,
-                        walletCallback: (wallet) => _wallet = wallet,
-                        onQrScanButtonPressed: onQrScanButtonPressed,
-                      ));
+                context: context,
+                useSafeArea: true,
+                barrierDismissible: true,
+                builder: (context) {
+                  dialogContext = context;
+                  return ModalMainPage(
+                    uri: uri,
+                    walletCallback: (wallet) => _wallet = wallet,
+                    onQrScanButtonPressed: () {
+                      Navigator.of(context).pop();
+                      onQrScanButtonPressed();
+                    },
+                  );
+                },
+              );
 
               isDismissed = true;
               if (!sessionCreated && !isError) {
@@ -141,7 +149,7 @@ class WalletConnectQrCodeModal {
     cancelableCompleter.operation.value.then((session) {
       sessionCreated = true;
       if (!isDismissed) {
-        Navigator.of(context).pop();
+        Navigator.of(dialogContext!).pop();
       }
       if (!completer.isCompleted) {
         completer.complete(session);
