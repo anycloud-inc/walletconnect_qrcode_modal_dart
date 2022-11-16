@@ -35,43 +35,44 @@ class _ModalMainPageState extends State<ModalMainPage> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: SizedBox(
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+        ),
         width: MediaQuery.of(context).size.width * 0.9,
         height: max(500, MediaQuery.of(context).size.height * 0.5),
-        child: Card(
-          child: Padding(
-            padding: const EdgeInsets.all(8),
-            child: DefaultTabController(
-              length: 2,
-              child: Column(
-                children: [
-                  CupertinoSlidingSegmentedControl<int>(
-                    groupValue: _groupValue,
-                    onValueChanged: (value) => setState(() {
-                      _groupValue = value;
-                    }),
-                    backgroundColor: Colors.grey.shade300,
-                    padding: const EdgeInsets.all(4),
-                    children: {
-                      0: Utils.isDesktop
-                          ? const QrSegment()
-                          : const ListSegment(),
-                      1: const QrScannerSegment(),
-                      2: Utils.isDesktop
-                          ? const ListSegment()
-                          : const QrSegment(),
-                    },
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: DefaultTabController(
+            length: 2,
+            child: Column(
+              children: [
+                CupertinoSlidingSegmentedControl<int>(
+                  groupValue: _groupValue,
+                  onValueChanged: (value) => setState(() {
+                    _groupValue = value;
+                  }),
+                  padding: const EdgeInsets.all(4),
+                  children: {
+                    0: Utils.isDesktop
+                        ? const QrSegment()
+                        : const ListSegment(),
+                    1: const QrScannerSegment(),
+                    2: Utils.isDesktop
+                        ? const ListSegment()
+                        : const QrSegment(),
+                  },
+                ),
+                Expanded(
+                  child: _ModalContent(
+                    groupValue: _groupValue!,
+                    walletCallback: widget.walletCallback,
+                    uri: widget.uri,
+                    onQrScanButtonPressed: widget.onQrScanButtonPressed,
                   ),
-                  Expanded(
-                    child: _ModalContent(
-                      groupValue: _groupValue!,
-                      walletCallback: widget.walletCallback,
-                      uri: widget.uri,
-                      onQrScanButtonPressed: widget.onQrScanButtonPressed,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
