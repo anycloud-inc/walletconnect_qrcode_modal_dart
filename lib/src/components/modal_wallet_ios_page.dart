@@ -38,7 +38,7 @@ class ModalWalletIOSPage extends StatelessWidget {
                   'ウォレットを選択',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 15,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: CnpAppColor.black,
                   ),

@@ -109,7 +109,7 @@ class QrSegment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const _Segment(
-      text: 'QR Code',
+      text: 'QRコード',
     );
   }
 }
