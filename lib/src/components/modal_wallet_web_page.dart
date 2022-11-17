@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:walletconnect_qrcode_modal_dart/src/lib/app_clipbord_manager.dart';
+import 'package:walletconnect_qrcode_modal_dart/src/lib/config/cnp_app_color.dart';
 
 const _webAuthurl = 'https://app.cnpowners.jp';
 const _appGray = Color(0xFFA2A5A9);
@@ -54,9 +55,15 @@ class _ModalWalletWebPageState extends State<ModalWalletWebPage> {
 
   Widget _qrScannerButton(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
+      width: 260,
       child: TextButton(
-        child: const Text('QRコードを読み込む'),
+        child: const Text(
+          'QRコードを読み込む',
+          style: TextStyle(
+            fontSize: 14,
+            color: Colors.white,
+          ),
+        ),
         onPressed: widget.onPressed,
         style: ButtonStyle(
           padding: MaterialStateProperty.all(
@@ -67,7 +74,7 @@ class _ModalWalletWebPageState extends State<ModalWalletWebPage> {
           foregroundColor:
               MaterialStateProperty.resolveWith((states) => Colors.white),
           backgroundColor:
-              MaterialStateProperty.resolveWith((states) => Colors.black),
+              MaterialStateProperty.resolveWith((states) => CnpAppColor.black),
           overlayColor: MaterialStateProperty.resolveWith(
               (states) => Colors.white.withOpacity(0.1)),
         ),
@@ -83,21 +90,22 @@ class _ModalWalletWebPageState extends State<ModalWalletWebPage> {
         horizontal: 16,
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Text(
             '接続の手順',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
+              color: CnpAppColor.black,
             ),
           ),
-          const SizedBox(height: 16),
-          const Text('1.PCで以下のリンクを開きMetaMaskと接続'),
+          const SizedBox(height: 24),
+          const Text('1. PCで以下のリンクを開きMetaMaskと接続'),
           const SizedBox(height: 16),
           _urlText(context),
-          const SizedBox(height: 16),
-          const Text('2.接続後、生成されるQRコードを読み込む'),
+          const SizedBox(height: 24),
+          const Text('2. 接続後、生成されるQRコードを読み込む'),
           const SizedBox(height: 16),
           _qrScannerButton(context)
         ],
