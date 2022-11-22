@@ -1,8 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:walletconnect_qrcode_modal_dart/src/components/modal_main_page.dart';
-import 'package:walletconnect_qrcode_modal_dart/src/lib/config/cnp_app_color.dart';
+import 'package:walletconnect_qrcode_modal_dart/src/components/text_ui.dart';
 import 'package:walletconnect_qrcode_modal_dart/src/models/wallet.dart';
 import 'package:walletconnect_qrcode_modal_dart/src/store/wallet_store.dart';
 import 'package:walletconnect_qrcode_modal_dart/src/utils/utils.dart';
@@ -34,14 +33,8 @@ class ModalWalletAndroidPage extends StatelessWidget {
                   bottom: 24,
                   left: 16,
                 ),
-                child: Text(
-                  'ウォレットを選択',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color: CnpAppColor.black,
-                  ),
+                child: TextUI(
+                  textString: 'ウォレットを選択',
                 ),
               ),
               Expanded(
@@ -108,12 +101,10 @@ class ModalWalletAndroidPage extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
-                child: Text(
-                  wallet.name,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                child: TextUI(
+                  textString: wallet.name,
+                  fontSize: 18.0,
+                  textAlign: TextAlign.start,
                 ),
               ),
             ),

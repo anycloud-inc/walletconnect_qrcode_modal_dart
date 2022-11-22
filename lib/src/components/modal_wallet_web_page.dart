@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:walletconnect_qrcode_modal_dart/src/components/text_ui.dart';
 import 'package:walletconnect_qrcode_modal_dart/src/lib/app_clipbord_manager.dart';
 import 'package:walletconnect_qrcode_modal_dart/src/lib/config/cnp_app_color.dart';
 
@@ -23,20 +24,22 @@ class _ModalWalletWebPageState extends State<ModalWalletWebPage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text(
-          _webAuthurl,
-          style: TextStyle(fontSize: 14, color: _appGray),
+        const TextUI(
+          textString: _webAuthurl,
+          fontSize: 14.0,
+          fontColor: _appGray,
         ),
-        const SizedBox(width: 8),
+        const SizedBox(width: 12),
         TextButton(
           style: TextButton.styleFrom(
             backgroundColor: _appGray.withOpacity(0.1),
             minimumSize: Size.zero,
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),
-          child: Text(
-            _copiedToClipboard ? 'Copied' : 'Copy',
-            style: const TextStyle(fontSize: 12, color: _appGray),
+          child: TextUI(
+            textString: _copiedToClipboard ? 'Copied' : 'Copy',
+            fontSize: 12.0,
+            fontColor: _appGray,
           ),
           onPressed: _copiedToClipboard
               ? null
@@ -57,12 +60,10 @@ class _ModalWalletWebPageState extends State<ModalWalletWebPage> {
     return SizedBox(
       width: 260,
       child: TextButton(
-        child: const Text(
-          'QRコードを読み込む',
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.white,
-          ),
+        child: const TextUI(
+          textString: 'QRコードを読み込む',
+          fontSize: 14.0,
+          fontColor: Colors.white,
         ),
         onPressed: widget.onPressed,
         style: ButtonStyle(
@@ -92,21 +93,22 @@ class _ModalWalletWebPageState extends State<ModalWalletWebPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Text(
-            '接続の手順',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: CnpAppColor.black,
-            ),
+          const TextUI(
+            textString: '接続の手順',
           ),
           const SizedBox(height: 24),
-          const Text('1. PCで以下のリンクを開きMetaMaskと接続'),
+          const TextUI(
+            textString: '1. PCで以下のリンクを開きMetaMaskと接続',
+            fontSize: 14.0,
+          ),
           const SizedBox(height: 16),
           _urlText(context),
           const SizedBox(height: 24),
-          const Text('2. 接続後、生成されるQRコードを読み込む'),
-          const SizedBox(height: 16),
+          const TextUI(
+            textString: '2. 接続後、生成されるQRコードを読み込む',
+            fontSize: 14.0,
+          ),
+          const SizedBox(height: 24),
           _qrScannerButton(context)
         ],
       ),

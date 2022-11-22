@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:walletconnect_qrcode_modal_dart/src/components/text_ui.dart';
 
 import '../utils/utils.dart';
 import 'modal_qrcode_page.dart';
@@ -160,17 +161,11 @@ class _Segment extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
-        width: 100,
-        child: Text(
-          text,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-        ),
-      ),
+          width: 100,
+          child: TextUI(
+            textString: text,
+            fontSize: 15.0,
+          )),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:walletconnect_qrcode_modal_dart/src/components/text_ui.dart';
 import 'package:walletconnect_qrcode_modal_dart/src/lib/config/cnp_app_color.dart';
 
 class ModalQrCodePage extends StatefulWidget {
@@ -27,23 +28,11 @@ class _ModalQrCodePageState extends State<ModalQrCodePage> {
       ),
       child: Column(
         children: [
-          const Text(
-            'WalletConnect対応のウォレットで',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: CnpAppColor.black,
-            ),
+          const TextUI(
+            textString: 'WalletConnect対応のウォレットで',
           ),
-          const Text(
-            'QRコードをスキャン',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: CnpAppColor.black,
-            ),
+          const TextUI(
+            textString: 'QRコードをスキャン',
           ),
           Expanded(
             child: Padding(
@@ -54,12 +43,10 @@ class _ModalQrCodePageState extends State<ModalQrCodePage> {
           SizedBox(
             width: 260,
             child: TextButton(
-              child: Text(
-                _copiedToClipboard ? 'コピーしました' : 'クリップボードにコピー',
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: Colors.white,
-                ),
+              child: TextUI(
+                textString: _copiedToClipboard ? 'コピーしました' : 'クリップボードにコピー',
+                fontSize: 14.0,
+                fontColor: Colors.white,
               ),
               onPressed: _copiedToClipboard
                   ? null
