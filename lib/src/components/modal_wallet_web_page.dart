@@ -85,32 +85,34 @@ class _ModalWalletWebPageState extends State<ModalWalletWebPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 32,
-        horizontal: 16,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const TextUI(
-            textString: '接続の手順',
-          ),
-          const SizedBox(height: 24),
-          const TextUI(
-            textString: '1. PCで以下のリンクを開きMetaMaskと接続',
-            fontSize: 14.0,
-          ),
-          const SizedBox(height: 16),
-          _urlText(context),
-          const SizedBox(height: 24),
-          const TextUI(
-            textString: '2. 接続後、生成されるQRコードを読み込む',
-            fontSize: 14.0,
-          ),
-          const SizedBox(height: 24),
-          _qrScannerButton(context)
-        ],
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 32,
+          horizontal: 16,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const TextUI(
+              textString: '接続の手順',
+            ),
+            const SizedBox(height: 24),
+            const TextUI(
+              textString: '1. PCで以下のリンクを開きMetaMaskと接続',
+              fontSize: 14.0,
+            ),
+            const SizedBox(height: 16),
+            _urlText(context),
+            const SizedBox(height: 24),
+            const TextUI(
+              textString: '2. 接続後、生成されるQRコードを読み込む',
+              fontSize: 14.0,
+            ),
+            const SizedBox(height: 24),
+            _qrScannerButton(context),
+          ],
+        ),
       ),
     );
   }
