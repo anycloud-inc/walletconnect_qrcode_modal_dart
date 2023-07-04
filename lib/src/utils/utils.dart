@@ -21,18 +21,20 @@ class Utils {
   }) =>
       Uri.parse('$appLink/wc?uri=${Uri.encodeComponent(wcUri)}');
 
+  // アプリがインストールされている場合、native linkを優先して開く
+  // アプリがインストールされていない場合、universal linkをApp内webで開く
   static Future<void> iosLaunch({
     required Wallet wallet,
     required String uri,
   }) async {
-    if (await openableLink(wallet.mobile.universal)) {
-      await launchUrl(
-        convertToWcLink(appLink: wallet.mobile.universal!, wcUri: uri),
-        mode: LaunchMode.externalApplication,
-      );
-    } else if (await openableLink(wallet.mobile.native)) {
+    if (await openableLink(wallet.mobile.native)) {
       await launchUrl(
         convertToWcLink(appLink: wallet.mobile.native!, wcUri: uri),
+        mode: LaunchMode.externalApplication,
+      );
+    } else if (await openableLink(wallet.mobile.universal)) {
+      await launchUrl(
+        convertToWcLink(appLink: wallet.mobile.universal!, wcUri: uri),
       );
     } else if (await openableLink(wallet.app.ios)) {
       await launchUrl(Uri.parse(wallet.app.ios!));
